@@ -25,7 +25,6 @@ const FetchData = () => {
       }
     };
     fetchData();
-    console.log(users);
   }, []);
 
   return (
