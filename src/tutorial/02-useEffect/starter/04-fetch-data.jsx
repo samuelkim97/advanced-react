@@ -1,31 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const url = "https://api.github.com/users";
 
 const FetchData = () => {
   const [users, setUsers] = useState([]);
 
-  // useEffect(() => {
-  //   fetch(url).then((resp) => {
-  //     resp.json().then((arr) => {
-  //       setUsers(arr);
-  //     });
-  //   });
-  //   console.log(users);
-  // }, []);
+  const fetchData = useCallback(async () => {
+    try {
+      const resp = await fetch(url);
+      const users = await resp.json();
+      setUsers(users);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const resp = await fetch(url);
-        const users = await resp.json();
-        setUsers(users);
-      } catch (err) {
-        console.log(err);
-      }
-    };
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   return (
     <section>
